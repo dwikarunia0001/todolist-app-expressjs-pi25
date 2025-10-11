@@ -131,9 +131,6 @@ module.exports = {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Opsional: Hapus semua todo milik user ini
-      await require("../models/todo.model").deleteMany({ user: user._id });
-
       res.status(200).json({
         message: "User deleted successfully"
       });
