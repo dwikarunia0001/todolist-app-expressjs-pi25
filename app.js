@@ -5,9 +5,10 @@ const allRoutes = require('./routes');
 const connectToDb = require('./config/db');
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
-connectToDb();
+const PORT = process.env.PORT;
 
+app.use(express.json());
+connectToDb();
 app.use(allRoutes);
 
 // Route dasar untuk cek apakah server hidup
