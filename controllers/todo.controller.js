@@ -12,7 +12,8 @@ module.exports = {
 
       const newTodo = new Todo({
         title,
-        description: description || ''
+        description: description || '',
+        user: req.user.id 
       });
 
       await newTodo.save();
@@ -33,7 +34,11 @@ module.exports = {
   // GET /todos — Get all todos
   getTodos: async (req, res) => {
     try {
-      const todos = await Todo.find().sort({ createdAt: -1 });
+      if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      const todos = await Todo.find({user: req.user.id}).sort({ createdAt: -1 });
       res.status(200).json({
         message: 'Todos retrieved successfully',
         count: todos.length,
@@ -47,7 +52,14 @@ module.exports = {
   // GET /todos/:id — Get single todo by ID
   getTodoById: async (req, res) => {
     try {
-      const todo = await Todo.findById(req.params.id);
+      if (!req.user) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      
+      const todo = await Todo.findOne({
+        _id: req.params.id,
+        user: req.user.id
+      });
       if (!todo) {
         return res.status(404).json({ message: 'Todo not found' });
       }
@@ -69,7 +81,7 @@ module.exports = {
       const { title, description, completed } = req.body;
 
       const todo = await Todo.findByIdAndUpdate(
-        req.params.id,
+        {_id: req.params.id, user: req.user.id},
         { title, description, completed },
         { new: true, runValidators: true }
       );
@@ -97,7 +109,12 @@ module.exports = {
   // DELETE /todos/:id — Delete single todo
   deleteTodo: async (req, res) => {
     try {
-      const todo = await Todo.findByIdAndDelete(req.params.id);
+      const todo = await Todo.findByIdAndDelete(
+        {
+        _id: req.params.id,
+        user: req.user.id 
+        }
+      );
       if (!todo) {
         return res.status(404).json({ message: 'Todo not found' });
       }
@@ -115,7 +132,7 @@ module.exports = {
   // DELETE /todos — Delete ALL todos
   deleteAllTodos: async (req, res) => {
     try {
-      const result = await Todo.deleteMany({});
+      const result = await Todo.deleteMany({user: req.user.id});
       res.status(200).json({
         message: 'All todos deleted successfully',
         deletedCount: result.deletedCount

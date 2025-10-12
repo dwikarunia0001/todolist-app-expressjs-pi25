@@ -12,8 +12,8 @@ const {
 
 const { verifyToken } = require("../middleware/auth");
 
-router.get("/", getTodos);
-router.get("/:id", getTodoById);
+router.get("/", verifyToken, getTodos);
+router.get("/:id", verifyToken, getTodoById);
 router.post("/", verifyToken, createTodo);
 router.put("/:id", verifyToken, updateTodo);
 router.delete("/:id", verifyToken, deleteTodo);
