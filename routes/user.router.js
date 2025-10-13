@@ -9,10 +9,12 @@ const {
     deleteUser
 } = require("../controllers/user.controller");
 
-router.get("/", getAllUser)
-router.get("/:id", getUserById)
-router.post("/", createUser)
-router.put("/:id", updateUser)
-router.delete("/:id", deleteUser)
+const { verifyAdmin } = require("../middleware/auth");
+
+router.get("/", verifyAdmin, getAllUser)
+router.get("/:id", verifyAdmin, getUserById)
+router.post("/", verifyAdmin, createUser)
+router.put("/:id", verifyAdmin, updateUser)
+router.delete("/:id", verifyAdmin, deleteUser)
 
 module.exports = router;

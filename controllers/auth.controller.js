@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Generate JWT token
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const generateToken = (id, role) => {
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, {
     expiresIn: '7d'
   });
 };
@@ -30,7 +30,8 @@ module.exports = {
       const user = await User.create({
         username,
         email,
-        password: hashedPassword // simpan hash, bukan plain text!
+        password: hashedPassword, // simpan hash, bukan plain text!
+        
       });
 
       res.status(201).json({
@@ -39,7 +40,7 @@ module.exports = {
           _id: user._id,
           username: user.username,
           email: user.email,
-          token: generateToken(user._id)
+          
         }
       });
     } catch (error) {
@@ -76,7 +77,7 @@ module.exports = {
           _id: user._id,
           username: user.username,
           email: user.email,
-          token: generateToken(user._id)
+          token: generateToken(user._id, user.role)
         }
       });
     } catch (error) {
