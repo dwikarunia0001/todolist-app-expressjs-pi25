@@ -11,6 +11,9 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
 - ✅ Authorization berbasis user (user hanya bisa mengakses todonya sendiri)
 - ✅ Validasi input & error handling
 - ✅ Response code HTTP yang sesuai standar
+- ✅ Role-based access: **User** vs **Admin**
+  - User: kelola todo sendiri
+  - Admin: kelola semua user
 
 ---
 
@@ -33,4 +36,8 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
    cd todolist-app-expressjs-pi25
    npm install
    cp .env.example .env 
+   edit .env dan sesuaikan
+      MONGODB_URI=mongodb://localhost:27017/todolist
+      JWT_SECRET=rahasia_panjang_dan_aman_12345!_ganti_di_produksi
+      PORT=3000
    npm run dev
