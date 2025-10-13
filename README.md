@@ -298,3 +298,190 @@ Hapus user.
 
 **Error Responses:**
 - 401/403/400/404 (Sama seperti di atas)
+
+### 👤 3. Todo Management (User Terotentikasi) 
+- 🔒 Memerlukan token
+- 💡 Hanya bisa akses todo milik sendiri 
+
+#### POST `/api/todos`
+Buat todo baru.
+
+**Request Body:**
+```json
+{
+  "title": "Belajar Express.js",
+  "description": "Membuat REST API dengan JWT",
+  "completed": false
+}
+```
+
+**Response Success (Status 201):**
+```json
+{
+  "message": "Todo created",
+  "data": {
+    "_id": "68ec02b3c4d5e6f7g8h9i1j2",
+    "title": "Belajar Express.js",
+    "description": "Membuat REST API dengan JWT",
+    "completed": false,
+    "user": "68ebdee86b23f1c2c213c27a",
+    "createdAt": "2025-10-12T18:00:00.000Z",
+    "updatedAt": "2025-10-12T18:00:00.000Z"
+  }
+}
+```
+
+**Error Responses:**
+- 401 Unauthorized (Token tidak valid):
+   ```json
+   {
+      "message": "Invalid header"
+   }
+- 400 Bad Request (Title wajib):
+   ```json
+   {
+      "message": "Title is required"
+   }
+- 500 Internal Server Error:
+   ```json
+   {
+      "message": "Server error",
+      "error": "..."
+   }
+
+#### GET `/api/todos`
+Dapatkan semua todo Anda.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "Your todos retrieved",
+  "count": 1,
+  "data": [
+    {
+      "_id": "68ec02b3c4d5e6f7g8h9i1j2",
+      "title": "Belajar Express.js",
+      "description": "Membuat REST API dengan JWT",
+      "completed": false,
+      "user": "68ebdee86b23f1c2c213c27a"
+    }
+  ]
+}
+```
+
+**Error Responses:**
+- 401 Unauthorized (Token tidak valid):
+   ```json
+   {
+      "message": "Invalid header"
+   }
+- 500 Internal Server Error:
+   ```json
+   {
+      "message": "Server error",
+      "error": "..."
+   }
+
+#### GET `/api/todos/:id`
+Dapatkan detail todo Anda.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "Todo retrieved",
+  "data": {
+    "_id": "68ec02b3c4d5e6f7g8h9i1j2",
+    "title": "Belajar Express.js",
+    "description": "Membuat REST API dengan JWT",
+    "completed": false,
+    "user": "68ebdee86b23f1c2c213c27a"
+  }
+}
+```
+
+**Error Responses:**
+- 401 Unauthorized (Token tidak valid):
+   ```json
+   {
+      "message": "Invalid header"
+   }
+- 400 Bad Request (ID tidak valid): 
+   ```json
+   {
+      "message": "Invalid todo ID"
+   }
+- 404 Not Found (Todo tidak ditemukan atau bukan milik Anda):
+   ```json
+   {
+      "message": "Todo not found or access denied"
+   }
+
+#### PUT `/api/todos/:id`
+Perbarui todo Anda.
+
+**Request Body:**
+```json
+{
+  "completed": true
+}
+```
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "Todo updated successfully",
+  "data": {
+    "_id": "68ec02b3c4d5e6f7g8h9i1j2",
+    "title": "Belajar Express.js",
+    "description": "Membuat REST API dengan JWT",
+    "completed": true,
+    "user": "68ebdee86b23f1c2c213c27a"
+  }
+}
+```
+
+**Error Responses:**
+- 401/400/404 (Sama seperti di atas)
+- 400 Bad Request (Validasi gagal): 
+   ```json
+   {
+      "message": "Validation error",
+      "errors": ["..."]
+   }
+
+#### DELETE `/api/todos/:id`
+Hapus todo Anda.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "Todo deleted successfully"
+}
+```
+
+**Error Responses:**
+- 401/400/404 (Sama seperti di atas)
+
+#### DELETE `/api/todos`
+Hapus semua todo Anda.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "All your todos deleted successfully",
+  "deletedCount": 1
+}
+```
+
+**Error Responses:**
+- 401 Unauthorized:
+   ```json
+   {
+      "message": "Invalid header"
+   }
+- 500 Internal Server Error:
+   ```json
+   {
+      "message": "Server error",
+      "error": "..."
+   }
