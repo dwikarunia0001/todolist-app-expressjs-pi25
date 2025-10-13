@@ -59,8 +59,11 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
 - User biasa hanya bisa akses todonya sendiri
 - Admin bisa akses semua user (tapi tetap hanya todo-nya sendiri)
 
+---
+
 ## 📊 Daftar Endpoint API
 ### 🔓 1. Auth (Publik)
+***
 
 #### POST `/api/auth/register`
 Daftar user baru.
@@ -148,6 +151,7 @@ Login user/admin.
 
 ### 👤 2. User Management (Hanya Admin) 
 (🔒 Memerlukan token dengan role: "admin")
+***
 
 #### GET `/api/users`
 Dapatkan semua user.
@@ -302,6 +306,7 @@ Hapus user.
 ### 👤 3. Todo Management (User Terotentikasi) 
 - 🔒 Memerlukan token
 - 💡 Hanya bisa akses todo milik sendiri 
+***
 
 #### POST `/api/todos`
 Buat todo baru.
