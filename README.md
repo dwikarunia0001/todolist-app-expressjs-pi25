@@ -145,3 +145,156 @@ Login user/admin.
    "message": "Internal server error",
    "error": "..."
    }
+
+### 👤 2. User Management (Hanya Admin) 
+(🔒 Memerlukan token dengan role: "admin")
+
+#### GET `/api/users`
+Dapatkan semua user.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "Successfully get all users",
+  "data": [
+    {
+      "_id": "68ebdee86b23f1c2c213c27a",
+      "username": "john_doe",
+      "email": "john@example.com",
+      "role": "user"
+    },
+    {
+      "_id": "68ebd54a0ffca9553027ea12",
+      "username": "admin",
+      "email": "admin@example.com",
+      "role": "admin"
+    }
+  ]
+}
+```
+
+**Error Responses:**
+- 401 Unauthorized (Token tidak valid/tidak ada):
+   ```json
+   {
+      "message": "Invalid header"
+   }
+- 403 Forbidden (Bukan admin):
+   ```json
+   {
+      "message": "Access denied. Admin only."
+   }
+- 500 Internal Server Error:
+   ```json
+   {
+      "message": "Internal server error",
+      "error": "..."
+   }
+
+#### GET `/api/users/:id`
+Dapatkan user by ID.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "User retrieved successfully",
+  "data": {
+    "_id": "68ebdee86b23f1c2c213c27a",
+    "username": "john_doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}
+```
+
+**Error Responses:**
+- 401/403 (Sama seperti di atas):
+- 400 Bad Request (ID tidak valid):
+   ```json
+   {
+      "message": "Invalid user ID"
+   }
+- 404 Not Found (User tidak ditemukan):
+   ```json
+   {
+      "message": "User not found"
+   }
+
+#### POST `/api/users`
+Buat user baru.
+
+**Request Body:**
+```json
+{
+  "username": "jane_doe",
+  "email": "jane@example.com",
+  "password": "jane123"
+}
+```
+
+**Response Success (Status 201):**
+```json
+{
+  "message": "User created successfully",
+  "data": {
+    "_id": "68ec01a2b3c4d5e6f7g8h9i0",
+    "username": "jane_doe",
+    "email": "jane@example.com",
+    "role": "user"
+  }
+}
+```
+
+**Error Responses:**
+- 401/403 (Sama seperti di atas):
+- 400 Bad Request (Validasi/email duplikat):
+   ```json
+   {
+      "message": "Username or email already in use"
+   }
+
+#### PUT `/api/users/:id`
+Perbarui user.
+
+**Request Body:**
+```json
+{
+  "username": "john_updated",
+  "email": "john_new@example.com"
+}
+```
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "User updated successfully",
+  "data": {
+    "_id": "68ebdee86b23f1c2c213c27a",
+    "username": "john_updated",
+    "email": "john_new@example.com",
+    "role": "user"
+  }
+}
+```
+
+**Error Responses:**
+- 401/403 (Sama seperti di atas):
+- 400 Bad Request (Validasi gagal):
+   ```json
+   {
+      "message": "Validation error",
+      "errors": ["..."]
+   }
+
+#### DELETE `/api/users/:id`
+Hapus user.
+
+**Response Success (Status 200):**
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+**Error Responses:**
+- 401/403/400/404 (Sama seperti di atas)
