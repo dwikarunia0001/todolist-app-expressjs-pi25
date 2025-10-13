@@ -67,6 +67,7 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
 
 #### POST `/api/auth/register`
 Daftar user baru.
+...
 
 **Request Body:**
 ```json
