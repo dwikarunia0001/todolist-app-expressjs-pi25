@@ -34,10 +34,13 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
    ```bash
    git clone https://github.com/dwikarunia0001/todolist-app-expressjs-pi25.git
    cd todolist-app-expressjs-pi25
+2. Install dependencies:
    npm install
+3. Siapkan file environment:
    cp .env.example .env 
-   edit .env dan sesuaikan
-      MONGODB_URI=mongodb://localhost:27017/todolist
-      JWT_SECRET=rahasia_panjang_dan_aman_12345!_ganti_di_produksi
-      PORT=3000
+4. Edit .env dan sesuaikan
+   MONGODB_URI=mongodb://localhost:27017/todolist
+   JWT_SECRET=rahasia_panjang_dan_aman_12345!_ganti_di_produksi
+   PORT=3000
+5. Jalankan server
    npm run dev
