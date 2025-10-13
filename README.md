@@ -72,6 +72,7 @@ Daftar user baru.
 "email": "john@example.com",
 "password": "secure123"
 }
+```
 
 **Response Success (Status 201):**
 ```json
@@ -84,6 +85,7 @@ Daftar user baru.
     "role": "user"
   }
 }
+```
 
 **Error Responses:**
 - 400 Bad Request (Email/username sudah dipakai):
@@ -116,6 +118,7 @@ Login user/admin.
   "email": "john@example.com",
   "password": "secure123"
 }
+```
 
 **Response Success (Status 200):**
 ```json
@@ -128,6 +131,7 @@ Login user/admin.
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxx"
   }
 }
+```
 
 **Error Responses:**
 - 401 Unauthorized (Email/password salah):
