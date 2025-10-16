@@ -85,7 +85,6 @@ Daftar user baru.
     "_id": "68ebdee86b23f1c2c213c27a",
     "username": "john_doe",
     "email": "john@example.com",
-    "role": "user"
   }
 }
 ```
