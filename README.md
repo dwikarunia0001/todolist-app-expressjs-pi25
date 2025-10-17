@@ -4,6 +4,11 @@ Aplikasi ToDoList sederhana dengan fitur autentikasi berbasis JWT, dibangun meng
 
 ---
 
+## 🌐 Live API
+✅ **Base URL**: `https://todolist-app-expressjs-pi25.vercel.app`
+
+---
+
 ## 🚀 Fitur
 
 - ✅ Register & Login (JWT Authentication)
